@@ -238,9 +238,8 @@ function sortProductsOnRating(product1, product2) {
 app.get('/products/sort/popularity', (req, res)=> {
     let productsCopy=products.slice();
     productsCopy.sort(sortProductsOnRating);
-    // const responseBody = "JSON of sorted products on popularity " + JSON.stringify(productsCopy);
-    // res.send(responseBody);
-    res.json(productsCopy);
+
+    res.json({products: productsCopy});
 })
 
 function sortProductsOnPrice(product1, product2) {
@@ -255,9 +254,8 @@ function sortProductsOnPriceAscending(product1, product2) {
 app.get('/products/sort/price-high-to-low', (req, res)=> {
   let productsSlice=products.slice();
   productsSlice.sort(sortProductsOnPrice);
-  // const responseBody = "JSON of sorted products on pricing (Low to High) " + JSON.stringify(productsSlice);
-  // res.send(responseBody);
-  res.json(productsSlice);
+
+  res.json({products:productsSlice});
 
 })
 
@@ -265,9 +263,7 @@ app.get('/products/sort/price-high-to-low', (req, res)=> {
 app.get('/products/sort/price-low-to-high', (req, res)=> {
     let productsSlice=products.slice();
     productsSlice.sort(sortProductsOnPriceAscending);
-    // const responseBody = "JSON of sorted products on pricing (Low to High) " + JSON.stringify(productsSlice);
-    // res.send(responseBody);
-    res.json(productsSlice);
+    res.json({products: productsSlice});
 
 })
 
@@ -278,9 +274,7 @@ function filterBasedOnRam(ele, ram) {
 app.get('/products/filter/ram', (req, res)=> {
     let ram=parseInt(req.query.ram);
     let filteredProducts = products.filter(ele=>filterBasedOnRam(ele, ram));
-    // const responseBody = `JSON of products with RAM=${ram} GB ` + JSON.stringify(productsSlice);
-    // res.send(responseBody);
-    res.json(filteredProducts);
+    res.json({products: filteredProducts});
 })
 
 function filterBasedOnRom(ele, rom) {
@@ -290,9 +284,7 @@ function filterBasedOnRom(ele, rom) {
 app.get('/products/filter/rom', (req, res)=> {
   let rom=parseInt(req.query.rom);
   let filteredProducts = products.filter(ele=>filterBasedOnRom(ele, rom));
-  // const responseBody = `JSON of products with ROM=${rom} GB ` + JSON.stringify(filteredProducts);
-  // res.send(responseBody);
-  res.json(filteredProducts);
+  res.json({products: filteredProducts});
 })
 
 function filterProductsBasedOnBrand(ele, brand) {
@@ -303,9 +295,7 @@ app.get('/products/filter/brand', (req, res)=> {
     let brand=req.query.brand;
     let lowerCaseBrandValue=brand.toLowerCase();
     let filteredProducts = products.filter(ele=>filterProductsBasedOnBrand(ele, lowerCaseBrandValue));
-    // const responseBody = `JSON of products with brand = ${brand} ` + JSON.stringify(filteredProducts);
-    // res.send(responseBody);
-    res.json(filteredProducts);
+    res.json({products: filteredProducts});
 })
 
 function filterProductsBasedOnOs(ele, os) {
@@ -316,9 +306,7 @@ app.get('/products/filter/os', (req, res)=> {
   let os=req.query.os;
   let lowerCaseOsValue=os.toLowerCase();
   let filteredProducts = products.filter(ele=>filterProductsBasedOnOs(ele, lowerCaseOsValue));
-  // const responseBody = `JSON of products with OS= ${os} ` + JSON.stringify(filteredProducts);
-  // res.send(responseBody);
-  res.json(filteredProducts);
+  res.json({products: filteredProducts});
 })
 
 function filterBasedOnPrice(ele, price) {
@@ -328,15 +316,11 @@ function filterBasedOnPrice(ele, price) {
 app.get('/products/filter/price', (req, res)=> {
     let price=parseFloat(req.query.price);
     let filteredProducts=products.filter(ele=>filterBasedOnPrice(ele, price));
-    // const responseBody = `JSON of products with Price <= ${price} ` + JSON.stringify(filteredProducts);
-    // res.send(responseBody);
-    res.json(filteredProducts);
+    res.json({products: filteredProducts});
 })
 
 app.get('/products', (req, res)=> {
-  //  const responseBody = `JSON of products ` + JSON.stringify(filteredProducts);
-  //  res.send(responseBody);
-  res.json(products);
+  res.json({products: products});
 })
 
 app.listen(port, () => {
